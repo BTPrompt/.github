@@ -7,7 +7,8 @@
 <img src="assets/bhirabhat/avatar-bhirabhat.jpg" width="120" style="border-radius:50%;"/>
 
 <h1 align="center">Bhirabhat Klomjit (Pae)</h1>
-<h3 align="center">Tech Lead, Systems Integrator & AI Engineering</h3>
+<h3 align="center">Robotics & Automation Engineering Student</h3>
+<p align="center">Systems Integration · Industrial Automation · Embedded Systems</p>
 <p align="center">FIBO, KMUTT · 3rd Year</p>
 
 <p align="center">
@@ -22,94 +23,185 @@
 
 ### About
 
-Undergraduate Robotics & Automation Engineering student at **KMUTT's Institute of Field Robotics (FIBO)**, working part-time as a robotics software engineer alongside coursework. Works as a systems integrator across the whole robot: LiDAR/point-cloud pipelines and backend services on one end, ROS 2 middleware and control logic in the middle, STM32 firmware and electrical control boxes on the other.
+Undergraduate Robotics & Automation Engineering student at **KMUTT's Institute of Field Robotics (FIBO)** with hands-on experience across robotics software, embedded control, industrial systems, networking, and field integration. I currently work part-time on applied robotics and industrial engineering projects at FIBO, with a focus on connecting subsystems, defining interfaces and operational requirements, deploying systems, and validating them on real hardware.
 
 | | |
 |---|---|
 | **Degree** | B.Eng. Robotics & Automation · FIBO, KMUTT |
 | **Year** | 3rd Year |
-| **Focus** | Robotics System Integration, Web Interfaces, Embedded Firmware, ROS 2 |
-| **Teaching** | Robotics, Python, Make0 (Open Hardware) |
+| **Focus** | Robotics System Integration · Industrial Automation · Embedded Systems |
+| **Current Work** | Part-time robotics & industrial engineering projects at FIBO |
 
 ---
 
-### Highlight Projects & Technical Experience
+### Selected Professional Experience
 
-**Professional work (FIBO, part-time)**
+#### Yokogawa — Pile Monitoring & Industrial Station Integration
 
-**Database & Backend — Flagship**
-> **Yokogawa — Real-Time LiDAR Stockpile Monitoring:** Built the DB/backend platform for a warehouse system tracking bulk-material pile volume from 8× Livox Mid-360 LiDARs. The work order called for a Supabase pile-data platform with FIFO pile grouping; implementing it surfaced that Supabase's auto-generated API (PostgREST) couldn't run the needed business logic (fill-% from height-map sums, in-DB state transitions). Rebuilt it as a dedicated FastAPI service (`pile_monitor`) driving a **priority-ordered pile-slot state machine** (filling_up → prioritized → disappearing → cleared, slots queued by distance-to-furnace) — a more robust replacement for the originally-specified FIFO grouping. Also designed the 6-table schema, the IoU+centroid identity-tracking algorithm that keeps a pile's identity across scans as it's partially removed, and an ISO 17757-aligned logging pipeline (Loki + InfluxDB + Grafana). Ran April through July.
-> <br><br> <img src="assets/bhirabhat/Yokogawa-PointCloud.jpg" height="220"/> <img src="assets/bhirabhat/Yokogawa-Dashboard.jpg" height="220"/>
+Worked on the station-side database, monitoring, and integration layer of a warehouse pile-monitoring system that consumes processed data from a team-owned **8× Livox Mid-360 LiDAR** pipeline.
+
+- Defined database/state requirements from real warehouse operating scenarios and coordinated interfaces with the LiDAR, robot, and decision-system teams.
+- Integrated processed LiDAR output into the database/backend workflow and downstream read-only interfaces.
+- Deployed the database, API, and dashboard stack on the actual Windows station.
+- Conceived and developed the **FIBO Station Monitor** to consolidate station, VM, LiDAR, network, robot, and service health into a single operational view.
+- Investigated AGV Wi-Fi and roaming issues using Aruba controller data, API/PowerShell diagnostics, ping/bandwidth tests, and real robot movement tests; supported on-site validation while the Aruba vendor performed final remote tuning.
+
+> <img src="assets/bhirabhat/Yokogawa-PointCloud.jpg" height="220"/> <img src="assets/bhirabhat/Yokogawa-Dashboard.jpg" height="220"/>
 > <br><br> <img src="assets/bhirabhat/Yokogawa-SlotStateMachine.png" width="600"/>
 
-**Robot Interface (Facobot AMR)**
-> **Facobot Control System:** Designed the operator interface for a warehouse AMR forklift — a React 19 app talking to a custom Python ROS 2 bridge node, with velocity jogging, Nav2 waypoint missions, and fleet management synced live to Supabase. Built a software safety layer (locked "Safe State," WebSocket watchdog, dead-man's-switch braking). A later DevOps audit cut the Docker image from 600+ MB to 94 MB and idle RAM from ~300 MB to 15 MB.
-> <br><br> <img src="assets/bhirabhat/Facobot-Robot.jpg" height="220"/> <img src="assets/bhirabhat/facobot-manual-ui.jpg" height="220"/>
+---
 
-**Robotics Visualization**
-> **B2 Web RViz (PTTEP):** Built a browser-based replacement for desktop RViz to teleoperate a Unitree B2 quadruped from an iPad, no local ROS 2 install needed. React Three Fiber renders live LiDAR point clouds and an accumulating occupancy map entirely outside React's render cycle, plus MJPEG camera streaming and Nav2 waypoint following.
-> <br><br> <img src="assets/bhirabhat/b2-pointcloud-rviz.jpg" height="220"/>
+#### FACOBOT AMR — Operator Interface & ROS 2 Integration
 
-**Navigation Math**
-> **Peplink GPS–Odometry Alignment:** Built a ROS 2 node aligning outdoor GPS with robot odometry — HDOP-weighted covariance estimation, a weighted SVD solver between GPS and odometry frames, and covariance rotation so RViz error ellipses reflect the true motion axes.
+Responsible for the operator-interface and ROS 2 bridge integration layer of a warehouse AMR forklift.
 
-**Coursework & competition**
+- Developed and integrated the touch-based operator interface with ROS 2 actions and robot state.
+- Worked on velocity jogging, mission execution, actuator controls, telemetry, and fleet/order views.
+- Added software-safety behavior including safe-state handling, watchdog logic, and dead-man control.
+- Debugged and integrated navigation-related features with the rest of the robot system; the core navigation algorithms were developed by other team members.
 
-**Embedded Systems & Control**
-> **1-DOF Pick-and-Place Arm:** Designed and built a control box utilizing STM32 (NUCLEO-G474RE). Developed safety circuits, calculated motor stall currents, selected relays, and integrated a 24V DC NPN proximity sensor (PR08-1.5DN) for precise operation.
-> <br><br> <img src="assets/bhirabhat/1Dof-Pick-Place.jpg" height="220"/> <img src="assets/bhirabhat/1Dof-Electrical-Box.jpg" height="220"/>
-
-**Mechanical Design & Fluid Simulation**
-> **Grease Separator (Oil Skimmer):** Developed the control system on a Raspberry Pi Pico — alternating timer logic to skim oil continuously, live pH sensing, automated LCD/light indicators. Used SolidWorks for 3D part design and flow simulation.
-> <br><br> <img src="assets/bhirabhat/Oil-Skimmer.jpg" height="220"/> <img src="assets/bhirabhat/Oil-Skimmer-Scraper.jpg" height="220"/>
-
-**Pure Analog & Digital Logic**
-> **FRA161 Squash Ball Hitting Machine:** Designed the complete logic control board using pure electronic components (555 timers, relays) — no microcontroller. Built a custom PSU, custom PCBs, and a joystick interface for manual operation.
-> <br><br> <img src="assets/bhirabhat/Shooter-Joy.jpg" height="220"/> <img src="assets/bhirabhat/Prototype-Shooter-LogicControl.jpg" height="220"/> <img src="assets/bhirabhat/Shooter-Y1-2.jpg" height="220"/>
-
-**Automation & Conveyor Systems**
-> **LiftEase (Patient Transfer Bed):** Designed the mechanical structure and electrical control system for a bed-to-bed patient transfer system. Firmware on Raspberry Pi Pico for conveyor/motor control and Arduino for the directional button interface.
-> <br><br> <img src="assets/bhirabhat/Auto-Flip-Bed.jpg" height="220"/>
-
-**Robotics Competition**
-> **ABU Robocon (Meihua):** Developed the mobile-base software for the competition robot — low-level communication and movement logic using ROS 2 and micro-ROS.
-> <br><br> <img src="assets/bhirabhat/ABU.jpg" height="220"/>
+> <img src="assets/bhirabhat/Facobot-Robot.jpg" height="220"/> <img src="assets/bhirabhat/facobot-manual-ui.jpg" height="220"/>
 
 ---
 
-### Core Skills
+#### BGC — Industrial Inspection System Audit & PLC Validation
 
-**Robotics & Intelligence**
-![ROS 2](https://img.shields.io/badge/ROS%202_Humble-22314E?style=flat&logo=ros&logoColor=white)
-`micro-ROS` `Point Cloud Processing` `SLAM & Nav2`
+Audited an existing industrial inspection system and took responsibility for the **Core/Backend** scope.
 
-**AI & Automation**
-![n8n](https://img.shields.io/badge/n8n-EA4B71?style=flat&logo=n8n&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-000000?style=flat&logo=ollama&logoColor=white)
-![LaTeX](https://img.shields.io/badge/LaTeX-008080?style=flat&logo=latex&logoColor=white)
-`Local LLM Deployment` `Chatbot Workflows` `Prompt Engineering` `AI-Assisted Technical Writing`
+- Mapped reported system symptoms to likely causes and separated issues by team ownership.
+- Reviewed and corrected Core/Backend behavior while preserving existing system boundaries.
+- Tested command/response behavior and validated the latest fixes with the real PLC/hardware setup.
 
-**Backend & Data**
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-`FastAPI` `PostgreSQL / Supabase` `MQTT` `Grafana`
+<!-- Add BGC project image here when available:
+> <img src="assets/bhirabhat/BGC-....jpg" height="220"/>
+-->
 
-**Frontend & Visualization**
-![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
-`React Three Fiber` `Zustand` `WebSocket` `SPA Architecture`
+---
 
-**DevOps & System Integration**
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![Nginx](https://img.shields.io/badge/Nginx-009639?style=flat&logo=nginx&logoColor=white)
-`TF2` `Docker Compose` `Cross-Service Architecture`
+#### Carver — ROS 2 Migration & SLAM
 
-**Hardware & Firmware**
-![STM32](https://img.shields.io/badge/STM32-03234B?style=flat&logo=stmicroelectronics&logoColor=white)
-![Raspberry Pi](https://img.shields.io/badge/-Raspberry_Pi-C51A4A?style=flat&logo=Raspberry-Pi&logoColor=white)
-![C++](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)
-`Pure Logic Circuit` `Electrical Wiring`
+Responsible for the **SLAM/localization subsystem** in a team project migrating a conventional PLC-based system toward ROS 2.
 
-**CAD & Simulation**
-![SolidWorks](https://img.shields.io/badge/SolidWorks-CC0000?style=flat&logo=dassaultsystemes&logoColor=white)
-![MATLAB](https://img.shields.io/badge/MATLAB-0076A8?style=flat&logo=mathworks&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
+- Generated maps and tuned localization behavior.
+- Integrated LiDAR, TF, odometry, and ROS 2 topic flow for the SLAM subsystem.
+- Connected the SLAM/localization work with the rest of the team's simulation.
+- The team completed the project at the **simulation level**; this was not presented as a full machine deployment.
 
+<!-- Add Carver project image here when available:
+> <img src="assets/bhirabhat/Carver-....jpg" height="220"/>
+-->
+
+---
+
+#### Peplink GPS–Odometry Alignment
+
+Worked on a ROS 2 pipeline for aligning outdoor GPS measurements with robot odometry and tested it with real equipment.
+
+- Parsed positioning data and converted it into the robot-local coordinate workflow.
+- Worked with covariance handling, frame alignment, and GPS-to-odometry transformation.
+- Integrated the result into the ROS 2 visualization/localization workflow for testing and debugging.
+
+---
+
+#### B2 Web RViz — Simulation-Focused Visualization Prototype
+
+Extended a browser-based robot-visualization prototype for a Unitree B2 workflow.
+
+- Worked with live/simulated point-cloud visualization, occupancy-map display, camera streaming, and waypoint interaction.
+- Development and validation were primarily based on rosbag, dummy data, and simulation rather than full real-robot acceptance testing.
+
+> <img src="assets/bhirabhat/b2-pointcloud-rviz.jpg" height="220"/>
+
+---
+
+### Coursework & Robotics Projects
+
+#### FRA161 — Squash Ball Hitting Machine
+
+Designed and built the control system using **555 timers, relays, and discrete logic without a microcontroller**.
+
+- Designed the logic-control circuit, PCB/power-supply portions, and joystick interface.
+- Assembled, soldered, wired, tuned, and tested the physical machine.
+
+> <img src="assets/bhirabhat/Shooter-Joy.jpg" height="220"/> <img src="assets/bhirabhat/Prototype-Shooter-LogicControl.jpg" height="220"/> <img src="assets/bhirabhat/Shooter-Y1-2.jpg" height="220"/>
+
+---
+
+#### LiftEase — Patient Transfer Bed
+
+Team project for a bed-to-bed patient-transfer prototype.
+
+- Co-designed the mechanical structure, conveyor/motor system, electrical controls, and control workflow.
+- Worked on motor-control firmware and the directional control interface.
+- Participated in assembly and physical prototype testing.
+
+> <img src="assets/bhirabhat/Auto-Flip-Bed.jpg" height="220"/>
+
+---
+
+#### 1-DOF Pick-and-Place Arm
+
+Focused on the electrical/control side of a 1-DOF pick-and-place system.
+
+- Designed the control-box electrical system and selected control components.
+- Assembled and wired the control box.
+- Worked on STM32 firmware, safety circuits, and proximity-sensor integration.
+- Tested and debugged the system on the physical arm.
+
+> <img src="assets/bhirabhat/1Dof-Pick-Place.jpg" height="220"/> <img src="assets/bhirabhat/1Dof-Electrical-Box.jpg" height="220"/>
+
+---
+
+#### Grease Separator / Oil Skimmer
+
+Worked on the control and sensing portion of a grease-separation prototype.
+
+- Developed the control electronics and Raspberry Pi Pico firmware.
+- Integrated pH sensing, LCD/status indication, and automatic operating logic.
+- Participated in assembly and physical testing with the prototype.
+
+> <img src="assets/bhirabhat/Oil-Skimmer.jpg" height="220"/> <img src="assets/bhirabhat/Oil-Skimmer-Scraper.jpg" height="220"/>
+
+---
+
+#### ABU Robocon — Meihua
+
+Contributed to the mobile-base software for a competition robot.
+
+- Worked with ROS 2 / micro-ROS movement software and team integration.
+- Integrated software from multiple team members and debugged system behavior on the real robot.
+- Participated in real-robot testing, tuning, and competition-team support.
+
+> <img src="assets/bhirabhat/ABU.jpg" height="220"/>
+
+---
+
+#### FRA361/362 — Innovation for Sustainability *(Ongoing)*
+
+Current coursework focused on systems thinking and technology feasibility for improving healthcare access in Thailand.
+
+- Researched telemedicine, rural healthcare workflows, medicine last-mile delivery, and medical-drone feasibility.
+- Built causal-loop hypotheses and explored leverage points using evidence from Thai healthcare studies and current public-sector programs.
+- Current stage: research and proposal development; no final prototype is claimed yet.
+
+---
+
+### Technologies & Tools I've Worked With
+
+These are technologies I have used across projects; the list is **not intended as a proficiency ranking**.
+
+**Robotics & Integration**  
+`ROS 2` · `micro-ROS` · `TF2` · `Nav2` · `SLAM / Localization` · `MQTT` · `WebSocket` · `HTTP / REST`
+
+**Embedded & Hardware**  
+`STM32` · `Raspberry Pi Pico` · `Arduino` · `555 / Relay Logic` · `Sensor & Motor Integration` · `Electrical Wiring`
+
+**Software & Data**  
+`Python` · `C / C++` · `FastAPI` · `PostgreSQL / Supabase` · `React` · `Git` · `Docker`
+
+**Deployment & Field Engineering**  
+`Linux` · `Windows` · `PowerShell` · `Task Scheduler` · `Grafana / InfluxDB / Loki` · `PLC Integration & Testing` · `Industrial WLAN Diagnostics`
+
+---
+
+<p align="center"><sub>Portfolio updated for internship / CV use · September 2026</sub></p>
